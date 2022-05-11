@@ -5,20 +5,26 @@ require_once "../app/functions.php";
 
 session_start();
 
+//既にログインしていたらリダイレクト
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    header("location: index.html");
+    exit();
+}
+
+//postされてきたデータを格納
 $datas = [
     'name' => '',
     'password' => '',
     'confirm_password' => ''
 ];
+$login_err = "";
 
 //get通信だったらセッション変数にトークンを追加
 if($_SERVER['REQUEST_METHOD'] != 'POST') {
     setToken();
 }
 
-//post通信だったらdbへの新規登録処理
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //csrf対策
+if($_SERVER["REQUEST_METHOD"] == "POST") {
     checkToken();
 
     //postされたデータを変数に格納
@@ -29,52 +35,54 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //バリデーション
-    $errors = validation($datas);
-
-    //dbに同一ユーザーが存在していないか確認
-    if(empty($errors['name'])) {
-        $sql = "SELECT id FROM users WHERE name = :name";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue('name', $datas['name'], PDO::PARAM_INT);
-        $stmt->execute();
-        if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $errors['name'] = 'このユーザー名は既に使われています';
-        }
-    }
+    $errors = validation($datas, false);
 
     if(empty($errors)) {
-        $datas['password'] = password_hash($datas['password'], PASSWORD_DEFAULT);
-        //トランザクション処理
-        $pdo->beginTransaction();
-        try {
-            $sql = "INSERT INTO users (name,password) VALUES (?,?)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$datas['name'], $datas['password']]);
-            $pdo->commit();
-            header("Location: login.php");
-            exit;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            $pdo->rollBack();
+        $sql = "SELECT id,name,password FROM users WHERE name = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$datas['name']]);
+
+        //ユーザー情報があるか否か
+        if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            //パスワードが一致するか検証
+            if(password_verify($datas['password'], $row['password'])) {
+                //セッションIDを振り直す
+                session_regenerate_id(true);
+                //セッションにログイン情報を格納
+                $_SESSION['loggedin'] = true;
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['name'] = $row['name'];
+                header("Location: main.php");
+                exit();
+            }else {
+                $login_err = "ユーザー名またはパスワードが違います";
+            }
+        }else {
+            $login_err = "ユーザー名またはパスワードが違います";
         }
     }
-
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>Document</title>
 </head>
-
 <body>
-    <h1>新規登録</h1>
+    <h1>ログイン</h1>
+
+    <?php
+
+    if(!empty($login_err)) {
+        echo '<div class="alert alert-danger">' . $login_err . '</div>';
+    }
+
+    ?>
 
     <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post">
 
@@ -95,21 +103,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="form-group">
-            <label>
-                パスワード確認用
-                <input type="password" name="confirm_password" value="<?php echo h($datas['confirm_password']); ?>">
-                <span class="invalid-feedback"><?php echo h($errors['confirm_password']); ?></span>
-            </label>
-        </div>
-
-        <div class="form-group">
             <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
             <input type="submit" value="Submit">
         </div>
 
-        <p>すでにアカウントをお持ちですか？ <a href="login.php">ログイン</a></p>
-
+        <p>初めての方はこちら。<a href="register.php">新規登録</a></p>
     </form>
 </body>
-
 </html>
