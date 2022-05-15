@@ -80,3 +80,15 @@ function toggleTodo($pdo)
     $stmt->bindValue('id', $id, PDO::PARAM_INT);
     $stmt->execute();
 }
+
+function deleteTodo($pdo)
+{
+    $id = filter_input(INPUT_POST, 'id');
+    if(empty($id)) {
+        return;
+    }
+
+    $stmt = $pdo->prepare("DELETE FROM todos WHERE id = :id");
+    $stmt->bindValue('id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+}

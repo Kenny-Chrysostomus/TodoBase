@@ -5,3 +5,9 @@ ul {
 li {
     display: flex;
 }
+
+.delete {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 8px;
+}

@@ -8,4 +8,14 @@
             checkbox.parentNode.submit();
         });
     });
+
+    const deletes = document.querySelectorAll('.delete');
+    deletes.forEach(deleteList => {
+        deleteList.addEventListener('click', () => {
+            if(!confirm("削除してもよろしいですか？")) {
+                return;
+            }
+            deleteList.parentNode.submit();
+        });
+    });
 }

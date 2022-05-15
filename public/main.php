@@ -19,6 +19,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'toggle':
             toggleTodo($pdo);
             break;
+        case 'delete':
+            deleteTodo($pdo);
+            break;
+        default:
+            exit;
     }
 
 
@@ -61,9 +66,16 @@ $todos = getTodos($pdo);
                     <input type="hidden" name="id" value="<?= h($todo->id); ?>">
                     <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
                 </form>
+                
                 <span>
                     <?= h($todo->title); ?>
                 </span>
+
+                <form action="main.php?action=delete" method="post">
+                    <span class="delete">削除</span>
+                    <input type="hidden" name="id" value="<?= h($todo->id); ?>">
+                    <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
+                </form>
             </li>
         <?php endforeach; ?>
     </ul>
