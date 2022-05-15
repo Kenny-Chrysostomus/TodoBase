@@ -1,13 +1,12 @@
 <?php
 
-require_once "../app/database.php";
-require_once "../app/functions.php";
+require_once(__DIR__ . "/../app/config.php");
 
 session_start();
 
 //既にログインしていたらリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: index.html");
+    header("location: main.php");
     exit();
 }
 
@@ -71,7 +70,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/log.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>ログイン</h1>
@@ -84,11 +87,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     ?>
 
-    <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post">
+    <form class="form" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post">
 
         <div class="form-group">
             <label>
-                ユーザーネーム
+                ユーザーネーム<br>
                 <input type="text" name="name" value="<?php echo h($datas['name']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['name']); ?></span>
             </label>
@@ -96,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="form-group">
             <label>
-                パスワード
+                パスワード<br>
                 <input type="password" name="password" value="<?php echo h($datas['password']); ?>">
                 <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
             </label>

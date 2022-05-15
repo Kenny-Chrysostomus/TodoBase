@@ -45,3 +45,26 @@ function validation($datas, $confirm = true) {
 
     return $errors;
 }
+
+//----------------------------------------------------------------------
+
+
+function getTodos($pdo)
+{
+    $stmt = $pdo->query("SELECT * FROM todos ORDER BY id DESC");
+    return $stmt->fetchAll();
+}
+
+function addTodo($pdo)
+{
+    //filter_inputでデータを取得
+    $title = trim(filter_input(INPUT_POST, 'title'));
+    if($title === '') {
+        return;
+    }
+
+    $stmt = $pdo->prepare("INSERT INTO todos(title, user) VALUES (:title, :user)");
+    $stmt->bindValue('title', $title, PDO::PARAM_STR);
+    $stmt->bindValue('user', $_SESSION['name'], PDO::PARAM_STR);
+    $stmt->execute();
+}

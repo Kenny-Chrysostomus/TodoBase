@@ -1,7 +1,6 @@
 <?php
 
-require_once "../app/database.php";
-require_once "../app/functions.php";
+require_once(__DIR__ . "/../app/config.php");
 
 session_start();
 
