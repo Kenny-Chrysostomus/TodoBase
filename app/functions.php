@@ -51,7 +51,12 @@ function validation($datas, $confirm = true) {
 
 function getTodos($pdo)
 {
-    $stmt = $pdo->query("SELECT * FROM todos ORDER BY id DESC");
+    // $stmt = $pdo->query("SELECT * FROM todos ORDER BY id DESC");
+    // return $stmt->fetchAll();
+    
+    $stmt = $pdo->prepare("SELECT * FROM todos WHERE user = :user ORDER BY id DESC");
+    $stmt->bindValue('user', $_SESSION['name'], PDO::PARAM_STR);
+    $stmt->execute();
     return $stmt->fetchAll();
 }
 

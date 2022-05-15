@@ -44,13 +44,17 @@ $todos = getTodos($pdo);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TodoApp</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
 </head>
 <body>
-    <p>ようこそ、<?= htmlspecialchars($_SESSION['name']) ?>さん
 
+    <h1>TodoApp</h1>
+    
+    <p class="logout">ようこそ、<?= htmlspecialchars($_SESSION['name']) ?>さん
     <a href="../app/logout.php">ログアウト</a></p>
 
-    <h1>Todo</h1>
 
     <form action="main.php?action=add" method="post">
         <input type="text" name="title" placeholder="ここにTodoを入力">
@@ -67,11 +71,11 @@ $todos = getTodos($pdo);
                     <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
                 </form>
                 
-                <span>
+                <span class="<?= $todo->is_done ? 'done' : ''?>">
                     <?= h($todo->title); ?>
                 </span>
 
-                <form action="main.php?action=delete" method="post">
+                <form action="main.php?action=delete" method="post" class="delete-form">
                     <span class="delete">削除</span>
                     <input type="hidden" name="id" value="<?= h($todo->id); ?>">
                     <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">

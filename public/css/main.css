@@ -1,13 +1,56 @@
+body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    width: 580px;
+    margin: 24px auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.logout {
+    text-align: right;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+
 ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 li {
     display: flex;
+    padding: 4px 2px;
+    margin-bottom: 2px;
+}
+
+li:hover {
+    background-color: #f7f7f7;
+}
+
+.done {
+    text-decoration: line-through;
+    color: #ccc;
+}
+
+input[type="checkbox"] {
+    margin-right: 8px;
 }
 
 .delete {
     color: #ccc;
     cursor: pointer;
-    font-size: 8px;
+    font-size: 14px;
+}
+
+.delete-form {
+    margin-left: auto;
+    padding-left: 8px;
 }
