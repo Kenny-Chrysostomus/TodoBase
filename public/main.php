@@ -10,7 +10,17 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 //サーバー変数を調べる。postだった時
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     checkToken();
-    addTodo($pdo);
+    $action = filter_input(INPUT_GET, 'action');
+
+    switch($action) {
+        case 'add':
+            addTodo($pdo);
+            break;
+        case 'toggle':
+            toggleTodo($pdo);
+            break;
+    }
+
 
     header('Location: main.php'); //GETであくせすしてる?
     exit;
@@ -28,6 +38,7 @@ $todos = getTodos($pdo);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TodoApp</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <p>ようこそ、<?= htmlspecialchars($_SESSION['name']) ?>さん
@@ -36,7 +47,7 @@ $todos = getTodos($pdo);
 
     <h1>Todo</h1>
 
-    <form action="main.php" method="post">
+    <form action="main.php?action=add" method="post">
         <input type="text" name="title" placeholder="ここにTodoを入力">
         <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
         <!-- <button>送信</button> -->
@@ -45,7 +56,11 @@ $todos = getTodos($pdo);
     <ul>
         <?php foreach($todos as $todo): ?>
             <li>
-                <input type="checkbox" <?=  $todo->is_done ? "checked" : '';?>>
+                <form action="main.php?action=toggle" method="post">
+                    <input type="checkbox" <?=  $todo->is_done ? "checked" : '';?>>
+                    <input type="hidden" name="id" value="<?= h($todo->id); ?>">
+                    <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
+                </form>
                 <span>
                     <?= h($todo->title); ?>
                 </span>
@@ -54,5 +69,6 @@ $todos = getTodos($pdo);
     </ul>
 
 
+    <script src="js/main.js"></script>
 </body>
 </html>
