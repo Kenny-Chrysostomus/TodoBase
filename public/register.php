@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . "/../app/config.php");
+require_once(__DIR__ . "/../Verification/Verification.php");
 
 $pdo = Database::getInstance();
 
@@ -28,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //バリデーション
-    $errors = validation($datas);
+    $errors = Verification::validation($datas);
 
     //dbに同一ユーザーが存在していないか確認
     if(empty($errors['name'])) {
@@ -50,7 +51,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$datas['name'], $datas['password']]);
             $pdo->commit();
-            header("Location: login.php");
+            
+            //そのままログインしたい
+            $sql = "SELECT id FROM users WHERE name = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$datas['name']]);
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            //セッションIDを振り直す
+            session_regenerate_id(true);
+            //セッションにログイン情報を格納
+            $_SESSION['loggedin'] = true;
+            $_SESSION['id'] = $row['id'];
+            $_SESSION['name'] = $datas['name'];
+            header("Location: main.php");
             exit;
         } catch (PDOException $e) {
             echo $e->getMessage();

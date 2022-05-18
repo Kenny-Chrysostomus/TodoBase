@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . "/../app/config.php");
+require_once(__DIR__ . "/../Verification/Verification.php");
 
 //既にログインしていたらリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
@@ -34,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //バリデーション
-    $errors = validation($datas, false);
+    $errors = Verification::validation($datas, false);
 
     if(empty($errors)) {
         $sql = "SELECT id,name,password FROM users WHERE name = ?";

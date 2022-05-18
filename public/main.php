@@ -32,7 +32,7 @@ $todos = $todoClass->getAll();
     <h1>TodoApp</h1>
     
     <p class="logout">ようこそ、<?= Utils::h($_SESSION['name']) ?>さん
-    <a href="../app/logout.php">ログアウト</a></p>
+    <a href="../Verification/logout.php">ログアウト</a></p>
 
 
     <form action="main.php?action=add" method="post">
