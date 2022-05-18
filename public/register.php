@@ -80,29 +80,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="form-group">
             <label>
                 ユーザーネーム
-                <input type="text" name="name" value="<?php echo h($datas['name']); ?>">
-                <span class="invalid-feedback"><?php echo h($errors['name']); ?></span>
+                <input type="text" name="name" value="<?php echo Utils::h($datas['name']); ?>">
+                <span class="invalid-feedback"><?php echo Utils::h($errors['name']); ?></span>
             </label>
         </div>
 
         <div class="form-group">
             <label>
                 パスワード
-                <input type="password" name="password" value="<?php echo h($datas['password']); ?>">
-                <span class="invalid-feedback"><?php echo h($errors['password']); ?></span>
+                <input type="password" name="password" value="<?php echo Utils::h($datas['password']); ?>">
+                <span class="invalid-feedback"><?php echo Utils::h($errors['password']); ?></span>
             </label>
         </div>
 
         <div class="form-group">
             <label>
                 パスワード確認用
-                <input type="password" name="confirm_password" value="<?php echo h($datas['confirm_password']); ?>">
-                <span class="invalid-feedback"><?php echo h($errors['confirm_password']); ?></span>
+                <input type="password" name="confirm_password" value="<?php echo Utils::h($datas['confirm_password']); ?>">
+                <span class="invalid-feedback"><?php echo Utils::h($errors['confirm_password']); ?></span>
             </label>
         </div>
 
         <div class="form-group">
-            <input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
+            <input type="hidden" name="token" value="<?php echo Utils::h($_SESSION['token']); ?>">
             <input type="submit" value="Submit">
         </div>
 

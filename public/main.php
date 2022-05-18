@@ -52,13 +52,13 @@ $todos = getTodos($pdo);
 
     <h1>TodoApp</h1>
     
-    <p class="logout">ようこそ、<?= htmlspecialchars($_SESSION['name']) ?>さん
+    <p class="logout">ようこそ、<?= Utils::h($_SESSION['name']) ?>さん
     <a href="../app/logout.php">ログアウト</a></p>
 
 
     <form action="main.php?action=add" method="post">
         <input type="text" name="title" placeholder="ここにTodoを入力">
-        <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
+        <input type="hidden" name="token" value="<?= Utils::h($_SESSION['token']); ?>">
         <!-- <button>送信</button> -->
     </form>
     
@@ -67,18 +67,18 @@ $todos = getTodos($pdo);
             <li>
                 <form action="main.php?action=toggle" method="post">
                     <input type="checkbox" <?=  $todo->is_done ? "checked" : '';?>>
-                    <input type="hidden" name="id" value="<?= h($todo->id); ?>">
-                    <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
+                    <input type="hidden" name="id" value="<?= Utils::h($todo->id); ?>">
+                    <input type="hidden" name="token" value="<?= Utils::h($_SESSION['token']); ?>">
                 </form>
                 
                 <span class="<?= $todo->is_done ? 'done' : ''?>">
-                    <?= h($todo->title); ?>
+                    <?= Utils::h($todo->title); ?>
                 </span>
 
                 <form action="main.php?action=delete" method="post" class="delete-form">
                     <span class="delete">削除</span>
-                    <input type="hidden" name="id" value="<?= h($todo->id); ?>">
-                    <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
+                    <input type="hidden" name="id" value="<?= Utils::h($todo->id); ?>">
+                    <input type="hidden" name="token" value="<?= Utils::h($_SESSION['token']); ?>">
                 </form>
             </li>
         <?php endforeach; ?>
