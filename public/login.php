@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . "/../app/config.php");
-require_once(__DIR__ . "/../Verification/Verification.php");
+require_once(__DIR__ . "/../verification/Verification.php");
 
 //既にログインしていたらリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
