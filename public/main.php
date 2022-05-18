@@ -7,9 +7,11 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
+$pdo = Database::getInstance();
+
 //サーバー変数を調べる。postだった時
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    checkToken();
+    Token::check();
     $action = filter_input(INPUT_GET, 'action');
 
     switch($action) {

@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . "/../app/config.php");
 
-session_start();
+$pdo = Database::getInstance();
 
 $datas = [
     'name' => '',
@@ -12,13 +12,13 @@ $datas = [
 
 //get通信だったらセッション変数にトークンを追加
 if($_SERVER['REQUEST_METHOD'] != 'POST') {
-    setToken();
+    Token::set();
 }
 
 //post通信だったらdbへの新規登録処理
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     //csrf対策
-    checkToken();
+    Token::check();
 
     //postされたデータを変数に格納
     foreach($datas as $key => $value) {

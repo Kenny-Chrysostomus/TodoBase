@@ -2,13 +2,13 @@
 
 require_once(__DIR__ . "/../app/config.php");
 
-session_start();
-
 //既にログインしていたらリダイレクト
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     header("location: main.php");
     exit();
 }
+
+$pdo = Database::getInstance();
 
 //postされてきたデータを格納
 $datas = [
@@ -20,11 +20,11 @@ $login_err = "";
 
 //get通信だったらセッション変数にトークンを追加
 if($_SERVER['REQUEST_METHOD'] != 'POST') {
-    setToken();
+    Token::set();
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    checkToken();
+    Token::check();
 
     //postされたデータを変数に格納
     foreach($datas as $key => $value) {
