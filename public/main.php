@@ -9,32 +9,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 $pdo = Database::getInstance();
 
-//サーバー変数を調べる。postだった時
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    Token::check();
-    $action = filter_input(INPUT_GET, 'action');
-
-    switch($action) {
-        case 'add':
-            addTodo($pdo);
-            break;
-        case 'toggle':
-            toggleTodo($pdo);
-            break;
-        case 'delete':
-            deleteTodo($pdo);
-            break;
-        default:
-            exit;
-    }
-
-
-    header('Location: main.php'); //GETであくせすしてる?
-    exit;
-}
-
-$todos = getTodos($pdo);
-
+$todoClass = new Todo($pdo);
+$todoClass->checkPost();
+$todos = $todoClass->getAll();
 
 ?>
 
