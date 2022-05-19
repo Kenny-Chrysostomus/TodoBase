@@ -1,6 +1,7 @@
 'use strict';
 
 {
+    /**チェックボックスに関する処理 */
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     //checkboxを押すと自動で送信
     checkboxes.forEach(checkbox => {
@@ -19,13 +20,24 @@
         });
     });
 
+    /**削除機能 */
     const deletes = document.querySelectorAll('.delete');
     deletes.forEach(deleteList => {
         deleteList.addEventListener('click', () => {
             if(!confirm("削除してもよろしいですか？")) {
                 return;
             }
-            deleteList.parentNode.submit();
+            
+            fetch('main.php?action=delete', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    id: deleteList.dataset.id,
+                    token: deleteList.dataset.token,
+                }),
+            });
+
+            //DOM操作により削除後のページの表示を更新
+            deleteList.parentNode.remove();
         });
     });
 }
