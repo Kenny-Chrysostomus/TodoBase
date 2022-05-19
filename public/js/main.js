@@ -9,13 +9,13 @@
     //checkboxを押すと自動で送信
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
-            //fetch()...ページを遷移させずにデータをサーバーに送信
+            //fetch()...ページを遷移させずにデータをサーバーに送信(これでformを使わなくて良くなった)
             const url = 'main.php?action=toggle';
             const options = {
                 method: 'POST',
                 //inputに直接設定したidとtokenをセット
                 body: new URLSearchParams({
-                    id: checkbox.dataset.id,
+                    id: checkbox.parentNode.dataset.id, //親要素のdataset.id
                     token: token,
                 }),
             };
@@ -34,7 +34,7 @@
             fetch('main.php?action=delete', {
                 method: 'POST',
                 body: new URLSearchParams({
-                    id: deleteList.dataset.id,
+                    id: deleteList.parentNode.dataset.id,
                     token: token,
                 }),
             });

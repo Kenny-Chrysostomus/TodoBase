@@ -46,20 +46,15 @@ $todos = $todoClass->getAll();
         
         <ul>
             <?php foreach($todos as $todo): ?>
-                <li>
-                    <input
-                        type="checkbox"
-                        data-id="<?= Utils::h($todo->id); ?>"
-                        <?=  $todo->is_done ? "checked" : '';?>>
+
+                <li data-id="<?= Utils::h($todo->id); ?>">
+                    <input type="checkbox" <?=  $todo->is_done ? "checked" : '';?>>
                     
                     <span><?= Utils::h($todo->title); ?></span>
 
-                    <span
-                        class="delete"
-                        data-id="<?= Utils::h($todo->id); ?>">
-                        削除
-                    </span>
+                    <span class="delete">削除</span>
                 </li>
+                
             <?php endforeach; ?>
         </ul>
 
