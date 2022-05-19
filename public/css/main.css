@@ -1,6 +1,6 @@
 body {
     font-family: 'Zen Kaku Gothic New', sans-serif;
-    width: 580px;
+    width: 500px;
     margin: 24px auto;
 }
 
@@ -52,4 +52,13 @@ input[type="checkbox"] {
     font-size: 14px;
     margin-left: auto;
     padding-left: 8px;
+}
+
+a {
+    text-decoration: none;
+    color: #307fff; /*クリックしても変化しない*/
+}
+
+a:hover {
+    color: #1c6395;
 }
