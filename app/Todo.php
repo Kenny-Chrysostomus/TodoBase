@@ -21,7 +21,10 @@ class Todo
 
             switch($action) {
                 case 'add':
-                    $this->add();
+                    $id = $this->add();
+                    //json形式で返す
+                    header('Content-Type: application/json');
+                    echo json_encode(['id' => $id]);
                     break;
                 case 'toggle':
                     $this->toggle();
@@ -50,6 +53,8 @@ class Todo
         $stmt->bindValue('title', $title, PDO::PARAM_STR);
         $stmt->bindValue('user', $_SESSION['name'], PDO::PARAM_STR);
         $stmt->execute();
+        //挿入されたレコードのidを取得
+        return (int)$this->pdo->lastInsertId();
     }
 
 

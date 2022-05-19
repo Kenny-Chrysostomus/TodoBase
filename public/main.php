@@ -38,10 +38,8 @@ $todos = $todoClass->getAll();
         <a href="../Verification/logout.php">ログアウト</a></p>
 
 
-        <form action="main.php?action=add" method="post">
+        <form>
             <input type="text" name="title" placeholder="ここにTodoを入力">
-            <input type="hidden" name="token" value="<?= Utils::h($_SESSION['token']); ?>">
-            <!-- <button>送信</button> -->
         </form>
         
         <ul>
