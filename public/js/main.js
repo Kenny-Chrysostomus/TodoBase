@@ -5,7 +5,16 @@
     //checkboxを押すと自動で送信
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
-            checkbox.parentNode.submit();
+            //fetch()...ページを遷移させずにデータをサーバーに送信
+            const url = 'main.php?action=toggle';
+            const options = {
+                method: 'POST',
+                body: new URLSearchParams({
+                    id: checkbox.dataset.id,
+                    token: checkbox.dataset.token,
+                }),
+            };
+            fetch(url, options);
         });
     });
 

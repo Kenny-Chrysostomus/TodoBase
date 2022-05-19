@@ -35,7 +35,8 @@ li:hover {
     background-color: #f7f7f7;
 }
 
-.done {
+/*かつてdoneクラスがあった場所 checkされたとき次にあるspan要素に以下を適用*/
+input[type="checkbox"]:checked + span {
     text-decoration: line-through;
     color: #ccc;
 }

@@ -33,8 +33,6 @@ class Todo
                     exit;
             }
 
-
-            header('Location: main.php'); //GETであくせすしてる?
             exit;
         }
     }
