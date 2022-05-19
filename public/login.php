@@ -72,6 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    
     <link rel="stylesheet" href="./css/log.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,7 +93,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="form-group">
             <label>
-                ユーザーネーム<br>
+                <span class="tag">ユーザー名</span>
                 <input type="text" name="name" value="<?php echo Utils::h($datas['name']); ?>">
                 <span class="invalid-feedback"><?php echo Utils::h($errors['name']); ?></span>
             </label>
@@ -100,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="form-group">
             <label>
-                パスワード<br>
+            <span class="tag">パスワード</span>
                 <input type="password" name="password" value="<?php echo Utils::h($datas['password']); ?>">
                 <span class="invalid-feedback"><?php echo Utils::h($errors['password']); ?></span>
             </label>
@@ -108,7 +109,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="form-group">
             <input type="hidden" name="token" value="<?php echo Utils::h($_SESSION['token']); ?>">
-            <input type="submit" value="Submit">
+            <input type="submit" value="ログイン">
         </div>
 
         <p>初めての方はこちら。<a href="register.php">新規登録</a></p>

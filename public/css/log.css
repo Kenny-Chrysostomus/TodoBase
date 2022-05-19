@@ -1,0 +1,56 @@
+body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    width: 300px;
+    margin: 120px auto;
+}
+
+.tag {
+    display: block;
+    margin-top: 16px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: #fff;
+    background-color: #307fff;
+    border-color: #307fff;
+    margin: 24px 0 8px;
+    padding: 4px 16px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+}
+
+input[type="submit"]:hover {
+    background-color: #2580c2;
+    border-color: #2580c2;
+}
+
+.tag {
+    display: block;
+    margin-top: 8px;
+}
+
+a {
+    text-decoration: none;
+    color: #307fff; /*クリックしても変化しない*/
+}
+
+a:hover {
+    color: #1c6395;
+}
+
+.invalid-feedback {
+    font-size: 0.8rem;
+    color: rgb(214, 0, 0);
+}
+
+p {
+    font-size: 0.8rem;
+}

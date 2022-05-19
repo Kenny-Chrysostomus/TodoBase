@@ -84,6 +84,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
+
+    <link rel="stylesheet" href="./css/log.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -93,7 +98,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="form-group">
             <label>
-                ユーザーネーム
+                <span class="tag">ユーザー名</span>
                 <input type="text" name="name" value="<?php echo Utils::h($datas['name']); ?>">
                 <span class="invalid-feedback"><?php echo Utils::h($errors['name']); ?></span>
             </label>
@@ -101,7 +106,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="form-group">
             <label>
-                パスワード
+                <span class="tag">パスワード</span>
                 <input type="password" name="password" value="<?php echo Utils::h($datas['password']); ?>">
                 <span class="invalid-feedback"><?php echo Utils::h($errors['password']); ?></span>
             </label>
@@ -109,7 +114,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="form-group">
             <label>
-                パスワード確認用
+                <span class="tag">パスワード確認用</span>
                 <input type="password" name="confirm_password" value="<?php echo Utils::h($datas['confirm_password']); ?>">
                 <span class="invalid-feedback"><?php echo Utils::h($errors['confirm_password']); ?></span>
             </label>
