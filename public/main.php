@@ -29,40 +29,41 @@ $todos = $todoClass->getAll();
 </head>
 <body>
 
-    <h1>TodoApp</h1>
-    
-    <p class="logout">ようこそ、<?= Utils::h($_SESSION['name']) ?>さん
-    <a href="../Verification/logout.php">ログアウト</a></p>
+    <!-- それぞれの要素に必要なtokenを一箇所にまとめた。今回はmain要素にカスタムデータ属性でつける -->
+    <main data-token="<?= Utils::h($_SESSION['token']); ?>">
+
+        <h1>TodoApp</h1>
+        
+        <p class="logout">ようこそ、<?= Utils::h($_SESSION['name']) ?>さん
+        <a href="../Verification/logout.php">ログアウト</a></p>
 
 
-    <form action="main.php?action=add" method="post">
-        <input type="text" name="title" placeholder="ここにTodoを入力">
-        <input type="hidden" name="token" value="<?= Utils::h($_SESSION['token']); ?>">
-        <!-- <button>送信</button> -->
-    </form>
-    
-    <ul>
-        <?php foreach($todos as $todo): ?>
-            <li>
-                <input
-                    type="checkbox"
-                    data-id="<?= Utils::h($todo->id); ?>"
-                    data-token="<?= Utils::h($_SESSION['token']); ?>"
-                    <?=  $todo->is_done ? "checked" : '';?>
-                >
-                
-                <span><?= Utils::h($todo->title); ?></span>
+        <form action="main.php?action=add" method="post">
+            <input type="text" name="title" placeholder="ここにTodoを入力">
+            <input type="hidden" name="token" value="<?= Utils::h($_SESSION['token']); ?>">
+            <!-- <button>送信</button> -->
+        </form>
+        
+        <ul>
+            <?php foreach($todos as $todo): ?>
+                <li>
+                    <input
+                        type="checkbox"
+                        data-id="<?= Utils::h($todo->id); ?>"
+                        <?=  $todo->is_done ? "checked" : '';?>>
+                    
+                    <span><?= Utils::h($todo->title); ?></span>
 
-                <span
-                    class="delete"
-                    data-id="<?= Utils::h($todo->id); ?>"
-                    data-token="<?= Utils::h($_SESSION['token']); ?>">
-                    削除
-                </span>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+                    <span
+                        class="delete"
+                        data-id="<?= Utils::h($todo->id); ?>">
+                        削除
+                    </span>
+                </li>
+            <?php endforeach; ?>
+        </ul>
 
+    </main>
 
     <script src="js/main.js"></script>
 </body>

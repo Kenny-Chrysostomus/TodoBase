@@ -1,6 +1,9 @@
 'use strict';
 
 {
+    //tokenをそれぞれの要素から取得するのはだるいから先に取得
+    const token = document.querySelector('main').dataset.token;
+
     /**チェックボックスに関する処理 */
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     //checkboxを押すと自動で送信
@@ -13,7 +16,7 @@
                 //inputに直接設定したidとtokenをセット
                 body: new URLSearchParams({
                     id: checkbox.dataset.id,
-                    token: checkbox.dataset.token,
+                    token: token,
                 }),
             };
             fetch(url, options);
@@ -32,7 +35,7 @@
                 method: 'POST',
                 body: new URLSearchParams({
                     id: deleteList.dataset.id,
-                    token: deleteList.dataset.token,
+                    token: token,
                 }),
             });
 
