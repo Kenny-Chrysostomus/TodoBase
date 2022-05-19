@@ -9,6 +9,7 @@
             const url = 'main.php?action=toggle';
             const options = {
                 method: 'POST',
+                //inputに直接設定したidとtokenをセット
                 body: new URLSearchParams({
                     id: checkbox.dataset.id,
                     token: checkbox.dataset.token,
