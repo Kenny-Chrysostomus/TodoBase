@@ -29,6 +29,7 @@ li {
     display: flex;
     padding: 4px 2px;
     margin-bottom: 2px;
+    align-items: center;
 }
 
 li:hover {

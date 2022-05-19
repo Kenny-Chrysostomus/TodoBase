@@ -9,9 +9,11 @@
     //ページ読み込み時にすぐ入力できるようにフォーカス
     input.focus();
 
+
+    /**チェックボックス、削除機能に関する処理 */
     const ul = document.querySelector('ul');
     ul.addEventListener('click', e => {
-        //チェックボックスに関する処理
+        //チェックボックス
         if(e.target.type === 'checkbox') {
             fetch('main.php?action=toggle', {
                 method: 'POST',
@@ -20,10 +22,27 @@
                     id: e.target.parentNode.dataset.id, //親要素のdataset.id
                     token: token,
                 }),
+            })
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error('このTodoは既に削除されています');
+                }
+
+                return response.json();
+            })
+            .then(json => {
+                if(json.is_done !== e.target.checked) {
+                    alert('このTodoは最新状態に更新されていません');
+                    e.target.checked = json.is_done;
+                }
+            })
+            .catch(err => {
+                alert(err.message);
+                location.reload();
             });
         }
 
-        //削除機能に関する処理
+        //削除機能
         if(e.target.classList.contains('delete')) {
             if(!confirm("削除してもよろしいですか？")) {
                 return;
@@ -97,6 +116,6 @@
         ul.insertBefore(li, ul.firstChild);
 
     }
-    
+
 
 }
