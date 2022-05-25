@@ -1,15 +1,85 @@
+*,
+::before,
+::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/*---リセットCSSここまで------------------*/
+
 body {
     font-family: 'Zen Kaku Gothic New', sans-serif;
-    width: 500px;
+    margin: 0 auto;
+    background-color: #eaf4fc;
+}
+
+/*header*/
+header {
+    background-color: #393f4c; /*藍鉄*/
+    margin-top: 0;
+}
+
+.header-inner {
+    max-width: 1000px;
+    height: 72px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    display: block;
+    width: 240px;
+    color: #eaf4fc; /*月白*/
+    font-size: 40px;
+}
+
+
+.site-menu {
+    display: flex;
+    align-items: center;
+    color: #eaf4fc;
+}
+
+.site-menu a,p {
+    display: block;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+/*main*/
+
+.main-area {
+    width: 640px;
     margin: 24px auto;
 }
 
 h1 {
-    text-align: center;
+    background-color: #393f4c;
+    color: #eaf4fc;
+    padding: 4px 24px;
 }
 
-.logout {
-    text-align: right;
+.todoapp {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 16px;
+
 }
 
 input[type="text"] {
@@ -32,9 +102,9 @@ li {
     align-items: center;
 }
 
-li:hover {
+/* li:hover {
     background-color: #f7f7f7;
-}
+} */
 
 /*かつてdoneクラスがあった場所 checkされたとき次にあるspan要素に以下を適用*/
 input[type="checkbox"]:checked + span {

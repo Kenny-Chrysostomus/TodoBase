@@ -2,7 +2,7 @@
 
 {
     //tokenをそれぞれの要素から取得するのはだるいから先に取得
-    const token = document.querySelector('main').dataset.token;
+    const token = document.querySelector('body').dataset.token;
     //入力されたTodoを捕獲
     const input = document.querySelector('[name="title"]');
 

@@ -27,34 +27,51 @@ $todos = $todoClass->getAll();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
 </head>
-<body>
 
-    <!-- それぞれの要素に必要なtokenを一箇所にまとめた。今回はmain要素にカスタムデータ属性でつける -->
-    <main data-token="<?= Utils::h($_SESSION['token']); ?>">
+<!-- それぞれの要素に必要なtokenを一箇所にまとめた。今回はbody要素にカスタムデータ属性でつける -->
+<body data-token="<?= Utils::h($_SESSION['token']); ?>">
 
-        <h1>TodoApp</h1>
-        
-        <p class="logout">ようこそ、<?= Utils::h($_SESSION['name']) ?>さん
-        <a href="../verification/logout.php">ログアウト</a></p>
+    <header>
+        <div class="header-inner">
+            <a class="header-logo" href="main.php">
+                <p class="header-logo">TodoApp</p>
+            </a>
 
+            <div class="site-menu">
+                <p class="logout">ようこそ、<?= Utils::h($_SESSION['name']) ?>さん</p>
+                <a href="../verification/logout.php">ログアウト</a>
+            </div>
+        </div>
+    </header>
 
-        <form>
-            <input type="text" name="title" placeholder="ここにTodoを入力">
-        </form>
-        
-        <ul>
-            <?php foreach($todos as $todo): ?>
+    <main>
+        <div class="main-area">
 
-                <li data-id="<?= Utils::h($todo->id); ?>">
-                    <input type="checkbox" <?=  $todo->is_done ? "checked" : '';?>>
-                    
-                    <span><?= Utils::h($todo->title); ?></span>
+            <h1>ToDoList</h1>
 
-                    <span class="delete">削除</span>
-                </li>
+            <div class="todoapp">
+                <form>
+                    <input type="text" name="title" placeholder="ここにTodoを入力">
+                </form>
                 
-            <?php endforeach; ?>
-        </ul>
+                <ul>
+                    <?php foreach($todos as $todo): ?>
+        
+                        <li data-id="<?= Utils::h($todo->id); ?>">
+                            <input type="checkbox" <?=  $todo->is_done ? "checked" : '';?>>
+                            
+                            <span><?= Utils::h($todo->title); ?></span>
+        
+                            <span class="delete">削除</span>
+                        </li>
+                        
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+        </div>
+
+
 
     </main>
 
