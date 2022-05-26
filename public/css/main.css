@@ -74,6 +74,8 @@ h1 {
 }
 
 .todoapp {
+    max-height: calc(100vh - 160px);
+    overflow: scroll;
     background-color: #fff;
     border: 1px solid #ccc;
     border-top: none;
